@@ -1,25 +1,35 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovementAI : MonoBehaviour
 {
-    private EnemyMovementAI enemy;
+    public Transform target;
+    public int speed;
+    public int rotationSpeed;
+
     public GameObject player;
-    // Update is called once per frame
+
+    private Transform _enemyPos;
+
+    void Awake()
+    {
+        _enemyPos = transform;
+    }
+
+    void Start()
+    {
+        target = player.transform;
+    }
+    
     void Update()
     {
-        float x_diff = player.transform.position.x - transform.position.x;
-        float z_diff = player.transform.position.z - transform.position.z;
-        Vector3 v = new Vector3(x_diff,0,z_diff);
-        v = v.normalized;
-        if (x_diff > 0)
-        {
-            transform.position = transform.position - v;
-        }
-        else
-        {
-            transform.position = transform.position + v;
-        }
+        //linie laczace enemy i target
+        Debug.DrawLine(target.position, _enemyPos.position, Color.blue); 
+        //obrot w strone target
+        _enemyPos.rotation = Quaternion.Slerp(_enemyPos.rotation, Quaternion.LookRotation(target.position - _enemyPos.position), rotationSpeed * Time.deltaTime );
+        //ruch do przodu
+        _enemyPos.position += _enemyPos.forward * speed * Time.deltaTime;
     }
 }
