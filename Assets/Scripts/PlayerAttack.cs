@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -11,7 +12,14 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange=10;
 
     public float attackAngle=10;
+
+    private Vector3 rangeWing1;
+
+    private Vector3 rangeWing2;
+
+    private float attackAngleBetween = 0;
     
+    private float attackAngleSize = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +29,18 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 range1 = new Vector3(transform.position.x+attackRange,transform.position.y, transform.position.z+attackAngle);
-        Vector3 range2 = new Vector3(transform.position.x+attackRange,transform.position.y, transform.position.z-attackAngle);
-        Debug.DrawLine(transform.position,range1,Color.yellow);
-        Debug.DrawLine(transform.position,range2,Color.yellow);
+        rangeWing1 = new Vector3(transform.position.x+attackAngle,transform.position.y, transform.position.z+attackRange);
+        rangeWing2 = new Vector3(transform.position.x-attackAngle,transform.position.y, transform.position.z+attackRange);
+        Debug.DrawLine(transform.position,rangeWing1,Color.green);
+        Debug.DrawLine(transform.position,rangeWing2,Color.yellow);
+        
+        //Handles.DrawSolidArc(transform.position, ,rangeWing2);
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            Attack();
+            if (enemy != null)
+                Attack();
         }
+        FindEnemy();
     }
 
     private void Attack()
@@ -39,8 +51,17 @@ public class PlayerAttack : MonoBehaviour
 
     private void FindEnemy()
     {
-        GameObject[] enemies;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    //    foreach(GameObject)
+        GameObject enFind = GameObject.FindGameObjectWithTag("Enemy");
+        float distance = Vector3.Distance(transform.position,enFind.transform.position);
+        attackAngleBetween = Vector3.Angle(enFind.transform.position, rangeWing1) + Vector3.Angle(enFind.transform.position, rangeWing2);
+        attackAngleSize = Vector3.Angle(rangeWing1, rangeWing2);
+        if (distance < attackRange && attackAngleBetween>attackAngleSize)
+        {
+            enemy = enFind;
+        }
+        else
+        {
+            enemy = null;
+        }
     }
 }

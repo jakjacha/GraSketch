@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
 
     public float moveSpeed;
     public float rotationSpeed;
-    
 
     void Start()
     {
@@ -17,11 +16,6 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        /*Vector3 inputRot = new Vector3(0f,0f,Input.GetAxisRaw("Horizontal"));
-        Vector3 inputPos = new Vector3(Input.GetAxisRaw("Vertical"), 0f, 0f);
-        transform.rotation = Quaternion.LookRotation(inputRot * speed * Time.deltaTime);
-        transform.forward = inputPos * speed * Time.deltaTime;*/
-
         float horizontalInput = Input.GetAxis("Vertical");
         float verticalInput = Input.GetAxis("Horizontal");
 
