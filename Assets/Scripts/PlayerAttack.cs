@@ -38,8 +38,8 @@ public class PlayerAttack : MonoBehaviour
             if (enemy != null)
                 Attack();
         }
-        FindEnemy();
-        //FindEnemies();
+        //FindEnemy();
+        FindEnemies();
  
         //DEBUG
         Debug.DrawLine(_playerPos,_rangeWing1,Color.green);
@@ -72,13 +72,16 @@ public class PlayerAttack : MonoBehaviour
     private void FindEnemies()
     {
         GameObject[] enemiesFound = GameObject.FindGameObjectsWithTag("Enemy");
+        int enemiesCnt = enemiesFound.Length;
         foreach (GameObject enFound in enemiesFound)
         {
             Vector3 enFoundPos = transform.position;
             float distance = Vector3.Distance(_playerPos,enFoundPos);
+            
             _attackAngleBetween = Vector3.Angle(enFoundPos, _rangeWing1) + Vector3.Angle(enFoundPos, _rangeWing2);
             _attackAngleSize = Vector3.Angle(_rangeWing1, _rangeWing2);
-            if (distance < attackRange && _attackAngleBetween>_attackAngleSize)
+            
+            if (distance < attackRange ) //&& _attackAngleBetween>_attackAngleSize)
             {
                 enemy = enFound;
             }
@@ -86,6 +89,9 @@ public class PlayerAttack : MonoBehaviour
             {
                 enemy = null;
             }
+            //DEBUG
+            Debug.Log("Enemies: " + enemiesCnt + " Dist: " + distance);
         }
+        
     }
 }
