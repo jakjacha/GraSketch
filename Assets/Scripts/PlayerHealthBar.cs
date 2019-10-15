@@ -8,7 +8,7 @@ public class PlayerHealthBar : MonoBehaviour
     public int startingHealth = 100;
     public int currentHealth = 100;
     private int _healthBarSize;
-    public int healthBarHeight = 20;
+    private int _healthBarHeight = 20;
     void Update()
     {
         _healthBarSize = Screen.width / 2 / (startingHealth / currentHealth);
@@ -16,7 +16,7 @@ public class PlayerHealthBar : MonoBehaviour
     }
     void OnGUI()
     {
-        GUI.Box(new Rect(Screen.width/4, Screen.height-healthBarHeight, _healthBarSize, healthBarHeight),"test");
+        GUI.Box(new Rect(Screen.width/4, Screen.height-_healthBarHeight, _healthBarSize, _healthBarHeight),"test");
     }
 
     public void UpdateCurrentHealth(int change)
