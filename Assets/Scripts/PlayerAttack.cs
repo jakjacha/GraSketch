@@ -39,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
                 Attack();
         }
         //FindEnemy();
-        FindEnemies();
+        FindTarget();
  
         //DEBUG
         Debug.DrawLine(_playerPos,_rangeWing1,Color.green);
@@ -69,29 +69,37 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void FindEnemies()
+    private void FindTarget()
     {
-        GameObject[] enemiesFound = GameObject.FindGameObjectsWithTag("Enemy");
-        int enemiesCnt = enemiesFound.Length;
-        foreach (GameObject enFound in enemiesFound)
-        {
-            Vector3 enFoundPos = transform.position;
-            float distance = Vector3.Distance(_playerPos,enFoundPos);
-            
-            _attackAngleBetween = Vector3.Angle(enFoundPos, _rangeWing1) + Vector3.Angle(enFoundPos, _rangeWing2);
-            _attackAngleSize = Vector3.Angle(_rangeWing1, _rangeWing2);
-            
-            if (distance < attackRange ) //&& _attackAngleBetween>_attackAngleSize)
-            {
-                enemy = enFound;
-            }
-            else
-            {
-                enemy = null;
-            }
-            //DEBUG
-            Debug.Log("Enemies: " + enemiesCnt + " Dist: " + distance);
-        }
+        GameObject enFound = FindClosestEnemy(0f, attackRange);
+        Vector3 enFoundPos = enFound.transform.position;
         
+        _attackAngleBetween = Vector3.Angle(enFoundPos, _rangeWing1) + Vector3.Angle(enFoundPos, _rangeWing2);
+        _attackAngleSize = Vector3.Angle(_rangeWing1, _rangeWing2);
+          
+        enemy = _attackAngleBetween>_attackAngleSize ? enFound : null;
+    }
+    
+    private GameObject FindClosestEnemy(float min, float max) 
+    {
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+     
+        // calculate squared distances
+        min = min * min;
+        max = max * max;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance && curDistance >= min && curDistance <= max)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest;
     }
 }
