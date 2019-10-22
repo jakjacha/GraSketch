@@ -10,10 +10,9 @@ public class PlayerAttack : MonoBehaviour
     public int damageValue=10;
     public float attackRange=10;
     public float attackAngle=10;
-    
     public float cooldownTime = 1;
-    private float _nextAttack;
     
+    private float _nextAttack;
     private Vector3 _rangeWing1; 
     private Vector3 _rangeWing2;
     private float _attackAngleBetween = 0;
@@ -29,13 +28,11 @@ public class PlayerAttack : MonoBehaviour
         _playerPos = transform.position;
         _rangeWing1 = new Vector3(_playerPos.x+attackAngle, _playerPos.y, _playerPos.z+attackRange);
         _rangeWing2 = new Vector3(_playerPos.x-attackAngle,_playerPos.y, _playerPos.z+attackRange);
-        Debug.DrawLine(_playerPos,_rangeWing1,Color.green);
-        Debug.DrawLine(_playerPos,_rangeWing2,Color.yellow);
         
         if (Input.GetKeyUp(KeyCode.Space) && Time.time > _nextAttack)
         {
             _nextAttack = Time.time + cooldownTime; 
-            if (enemy != null)
+            if (enemy)
                 Attack();
         }
         //FindEnemy();
@@ -43,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
  
         //DEBUG
         Debug.DrawLine(_playerPos,_rangeWing1,Color.green);
-        Debug.DrawLine(_playerPos,_rangeWing2,Color.yellow);
+        Debug.DrawLine(_playerPos,_rangeWing2,Color.green);
     }
 
     private void Attack()
@@ -69,17 +66,16 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void FindTarget()
+    void FindTarget()
     {
         GameObject enFound = FindClosestEnemy(0f, attackRange);
+        if (!enFound) return;
         Vector3 enFoundPos = enFound.transform.position;
-        
         _attackAngleBetween = Vector3.Angle(enFoundPos, _rangeWing1) + Vector3.Angle(enFoundPos, _rangeWing2);
         _attackAngleSize = Vector3.Angle(_rangeWing1, _rangeWing2);
-          
-        enemy = _attackAngleBetween>_attackAngleSize ? enFound : null;
+        enemy = _attackAngleBetween > _attackAngleSize ? enFound : null;
     }
-    
+
     private GameObject FindClosestEnemy(float min, float max) 
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
