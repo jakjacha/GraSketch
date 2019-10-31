@@ -69,7 +69,11 @@ public class PlayerAttack : MonoBehaviour
     void FindTarget()
     {
         GameObject enFound = FindClosestEnemy(0f, attackRange);
-        if (!enFound) return;
+        if (!enFound)
+        {
+            enemy = null;
+            return;
+        }
         Vector3 enFoundPos = enFound.transform.position;
         _attackAngleBetween = Vector3.Angle(enFoundPos, _rangeWing1) + Vector3.Angle(enFoundPos, _rangeWing2);
         _attackAngleSize = Vector3.Angle(_rangeWing1, _rangeWing2);

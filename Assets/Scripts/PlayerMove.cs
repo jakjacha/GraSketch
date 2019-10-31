@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         _playerMove = GetComponent<CharacterController>();
+        if (moveSpeed < 5) moveSpeed = 5;
+        if (rotationSpeed < 5) rotationSpeed = 5;
     }
 
     void Update()
