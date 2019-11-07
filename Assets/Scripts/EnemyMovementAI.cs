@@ -32,4 +32,14 @@ public class EnemyMovementAI : MonoBehaviour
             transform.position += transform.forward * speed * Time.deltaTime;
         //za blisko
     }
+
+    private void OnCollisionEnter(Collision col) 
+    {
+        if(col.gameObject.CompareTag("Wall"))
+        {
+            transform.position = Vector3.zero;
+            
+        }
+        Debug.Log(col.gameObject.name);
+    }
 }
