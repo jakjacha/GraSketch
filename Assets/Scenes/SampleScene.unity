@@ -1110,6 +1110,8 @@ MonoBehaviour:
   ball: {fileID: 0}
   ballSpeed: 0
   fireAttackCooldown: 0
+  specialAttackCooldown: 0
+  globalSpecialCooldown: 0
 --- !u!54 &923297201
 Rigidbody:
   m_ObjectHideFlags: 0
