@@ -10,11 +10,16 @@ public class PlayerFireAttack : MonoBehaviour
 
     public float ballSpeed;
     public float fireAttackCooldown;
-
+    public float specialAttackCooldown;
+    public float globalSpecialCooldown;
+    
     private Vector3 playerPos;
     
     private float _ballLifeTime;
     private float _fireAttackCooldownTime;
+    
+    private float _specialAttackCooldownTime;
+    
     void Start()
     {
         ballSpeed = GetComponent<PlayerMove>().moveSpeed + 10;
@@ -56,6 +61,7 @@ public class PlayerFireAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))
         {
             ShootAll();
+            _specialAttackCooldownTime = Time.time + specialAttackCooldown;
         }
         
         //DEBUG
@@ -66,6 +72,8 @@ public class PlayerFireAttack : MonoBehaviour
         Debug.DrawRay(playerPos, new Vector3(0,0,50), Color.blue);
         
         Debug.DrawRay(playerPos, new Vector3(0,0,-50), Color.blue );
+        //TEMP
+        globalSpecialCooldown = _fireAttackCooldownTime - Time.time;
     }
 
     private void Shoot(Vector3 pPos, Vector3 tsf, float dir=1)
