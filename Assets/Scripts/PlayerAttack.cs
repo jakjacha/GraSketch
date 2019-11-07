@@ -17,8 +17,6 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 _rangeWing2;
     private float _attackAngleBetween = 0;
     private float _attackAngleSize = 0;
-    
-    
 
     private Vector3 _playerPos;
 
@@ -91,6 +89,8 @@ public class PlayerAttack : MonoBehaviour
         // calculate squared distances
         min = min * min;
         max = max * max;
+        
+        
         foreach (GameObject go in gos)
         {
             Vector3 diff = go.transform.position - position;

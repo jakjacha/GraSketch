@@ -6,6 +6,7 @@ using UnityEngine;
 public class BallCollision : MonoBehaviour
 {
     public float damageValue = 50;
+
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("Enemy"))
@@ -15,15 +16,15 @@ public class BallCollision : MonoBehaviour
             Debug.Log("Ball hit: " + col.gameObject.name);
         }
 
-//        if (col.gameObject.CompareTag("Wall"))
-//        {
-//            Destroy(gameObject);
-//        }
+        if (col.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void BallHitEnemy(GameObject enemy)
-    { 
+    {
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-       enemyHealth.UpdateCurrentHealth(change: damageValue);
+        enemyHealth.UpdateCurrentHealth(change: damageValue);
     }
 }

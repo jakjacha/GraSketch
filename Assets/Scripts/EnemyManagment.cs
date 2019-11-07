@@ -11,22 +11,24 @@ public class EnemyManagment : MonoBehaviour
     public int enemySpawnPosZ;
 
     public GameObject enemy;
+    private int _cnt;
 
     // Start is called before the first frame update
     void Start()
     {
+        _cnt = 0;
         StartCoroutine(EnemySpawn());
     }
 
     IEnumerator EnemySpawn()
     {
-        while (enemyCount < 5)
+        while (_cnt < enemyCount)
         {
-            enemySpawnPosX = Random.Range(1, 50);
-            enemySpawnPosZ = Random.Range(1, 50);
+            enemySpawnPosX = Random.Range(-45, 45);
+            enemySpawnPosZ = Random.Range(30, 120);
             Instantiate(enemy, new Vector3(enemySpawnPosX, 2, enemySpawnPosZ), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
-            enemyCount += 1;
+            _cnt ++;
         }
     }
 }

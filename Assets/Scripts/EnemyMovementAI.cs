@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyMovementAI : MonoBehaviour
@@ -8,13 +9,14 @@ public class EnemyMovementAI : MonoBehaviour
     private Transform _target;
     public int speed;
     public int rotationSpeed;
-
-    public GameObject _player;
+    public float enemyAttackRange;
+    private GameObject _player;
 
     //private Transform _enemyPos;
 
     void Start()
     {
+        enemyAttackRange = 4;
         _player = GameObject.FindGameObjectWithTag("Player");
         _target = _player.transform;
     }
@@ -26,6 +28,8 @@ public class EnemyMovementAI : MonoBehaviour
         //obrot w strone target
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_target.position - transform.position), rotationSpeed * Time.deltaTime );
         //ruch do przodu
-        transform.position += transform.forward * speed * Time.deltaTime;
+        if(Vector3.Distance(_target.position, transform.position)>enemyAttackRange)
+            transform.position += transform.forward * speed * Time.deltaTime;
+        //za blisko
     }
 }
