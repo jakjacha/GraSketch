@@ -46,8 +46,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        EnemyHealth enemyHealth = (EnemyHealth) enemy.GetComponent("EnemyHealth");
-        enemyHealth.UpdateCurrentHealth(damageValue*(-1));
+        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        enemyHealth.UpdateCurrentHealth(change: damageValue);
     }
 
     private void FindEnemy()

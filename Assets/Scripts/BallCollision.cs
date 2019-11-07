@@ -12,20 +12,18 @@ public class BallCollision : MonoBehaviour
         {
             Destroy(gameObject);
             BallHitEnemy(col.gameObject);
-            
+            Debug.Log("Ball hit: " + col.gameObject.name);
         }
 
 //        if (col.gameObject.CompareTag("Wall"))
 //        {
 //            Destroy(gameObject);
 //        }
-        Debug.Log("Ball hit: " + col.gameObject.name);
-        
     }
 
     private void BallHitEnemy(GameObject enemy)
-    {
-        EnemyHealth enemyHealth = (EnemyHealth) enemy.GetComponent("EnemyHealth");
-        enemyHealth.UpdateCurrentHealth(damageValue);
+    { 
+        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+       enemyHealth.UpdateCurrentHealth(change: damageValue);
     }
 }
