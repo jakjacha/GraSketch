@@ -5,12 +5,27 @@ using UnityEngine;
 
 public class BallCollision : MonoBehaviour
 {
+    public float damageValue = 50;
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Enemy") || col.gameObject.CompareTag(("Wall")))
+        if (col.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
+            BallHitEnemy(col.gameObject);
+            
         }
-        Debug.Log(col.gameObject.name);
+
+//        if (col.gameObject.CompareTag("Wall"))
+//        {
+//            Destroy(gameObject);
+//        }
+        Debug.Log("Ball hit: " + col.gameObject.name);
+        
+    }
+
+    private void BallHitEnemy(GameObject enemy)
+    {
+        EnemyHealth enemyHealth = (EnemyHealth) enemy.GetComponent("EnemyHealth");
+        enemyHealth.UpdateCurrentHealth(damageValue);
     }
 }

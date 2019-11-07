@@ -5,31 +5,27 @@ using UnityEngine;
 
 public class EnemyMovementAI : MonoBehaviour
 {
-    public Transform target;
+    private Transform _target;
     public int speed;
     public int rotationSpeed;
 
-    public GameObject player;
+    public GameObject _player;
 
-    private Transform _enemyPos;
-
-    void Awake()
-    {
-        _enemyPos = transform;
-    }
+    //private Transform _enemyPos;
 
     void Start()
     {
-        target = player.transform;
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _target = _player.transform;
     }
     
     void Update()
     {
         //linie laczace enemy i target
-        Debug.DrawLine(target.position, _enemyPos.position, Color.blue); 
+        Debug.DrawLine(_target.position, transform.position, Color.blue); 
         //obrot w strone target
-        _enemyPos.rotation = Quaternion.Slerp(_enemyPos.rotation, Quaternion.LookRotation(target.position - _enemyPos.position), rotationSpeed * Time.deltaTime );
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_target.position - transform.position), rotationSpeed * Time.deltaTime );
         //ruch do przodu
-        _enemyPos.position += _enemyPos.forward * speed * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 }

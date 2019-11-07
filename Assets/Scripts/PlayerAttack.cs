@@ -41,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
         //DEBUG
         Debug.DrawLine(_playerPos,_rangeWing1,Color.green);
         Debug.DrawLine(_playerPos,_rangeWing2,Color.green);
+        Debug.DrawLine(_rangeWing1,_rangeWing2, Color.green);
     }
 
     private void Attack()

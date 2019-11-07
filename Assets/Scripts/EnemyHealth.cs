@@ -2,21 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
-    public int currentHealth = 100;
-    private int _healthBarSize;
-    //public int _healthBarHeight = 20;
-    void Update()
+    public float currentHealth = 100;
+    public float startingHealth = 100;
+
+    public Slider slider;
+    
+    private void Start()
     {
-       // _healthBarSize = Screen.width / 2 / (startingHealth / currentHealth);
-        UpdateCurrentHealth(0);
-        new Rect(transform.position.x, 2,   10, 10);
+        currentHealth = startingHealth;
+        slider.maxValue = startingHealth;
     }
 
-    public void UpdateCurrentHealth(int change)
+    
+    void Update()
+    {
+        // ReSharper disable once PossibleLossOfFraction
+        UpdateCurrentHealth(0);
+        slider.value = currentHealth / startingHealth * 100;
+    }
+    
+
+
+    public void  UpdateCurrentHealth(float change)
     {
         currentHealth += change;
         if (currentHealth < 0)
@@ -27,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth > startingHealth)
             currentHealth = startingHealth;
-        
-        
     }
+
+
 }

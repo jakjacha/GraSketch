@@ -36,7 +36,7 @@ public class PlayerFireAttack : MonoBehaviour
         //attack BWD
         if(Input.GetKeyDown(KeyCode.K) && Time.time > _fireAttackCooldownTime)
         {
-            Shoot(playerPos, transform.forward, -1);
+            Shoot(playerPos , transform.forward, -1);
             _fireAttackCooldownTime = Time.time + fireAttackCooldown;
         }
         //attack Right
@@ -87,12 +87,4 @@ public class PlayerFireAttack : MonoBehaviour
         
     }
     
-    private void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.CompareTag("Enemy")) Destroy(gameObject);
-        
-        if(col.gameObject.CompareTag("Wall")) Destroy(gameObject);
-
-        Debug.Log(col.gameObject.name);
-    }
 }
