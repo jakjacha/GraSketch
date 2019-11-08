@@ -107,9 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e20d9b83ac884c399bef52ec0658f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 5
-  enemyAttackRange: 0
+  speed: 4
+  rotationSpeed: 6
+  enemyAttackRange: 5
 --- !u!114 &129330335327198560
 MonoBehaviour:
   m_ObjectHideFlags: 0
