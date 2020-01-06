@@ -13,10 +13,15 @@ public class BallCollision : MonoBehaviour
         {
             Destroy(gameObject);
             BallHitEnemy(col.gameObject);
-            Debug.Log("Ball hit: " + col.gameObject.name);
+            //Debug.Log("Ball hit: " + col.gameObject.name);
         }
 
         if (col.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+        
+        if(col.gameObject.CompareTag("Ball"))
         {
             Destroy(gameObject);
         }

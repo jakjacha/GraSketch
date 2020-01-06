@@ -11,18 +11,16 @@ public class PlayerFireAttack : MonoBehaviour
     public float ballSpeed;
     public float fireAttackCooldown;
     public float specialAttackCooldown;
-    public float globalSpecialCooldown;
-    
-    private Vector3 playerPos;
+
+
+    private Vector3 _playerPos;
     
     private float _ballLifeTime;
     private float _fireAttackCooldownTime;
-    
-    private float _specialAttackCooldownTime;
-    
+
     void Start()
     {
-        ballSpeed = GetComponent<PlayerMove>().moveSpeed + 10;
+        ballSpeed = GetComponent<PlayerMove>().speed + 10;
         ball = Resources.Load("Ball") as GameObject;
         if (ballSpeed < 1) ballSpeed = 10;
         if (_ballLifeTime < 1) _ballLifeTime = 10;
@@ -31,29 +29,29 @@ public class PlayerFireAttack : MonoBehaviour
 
     void Update()
     {
-        playerPos = transform.position;
+        _playerPos = transform.position;
         //attack FWD
         if (Input.GetKeyDown(KeyCode.I) && Time.time > _fireAttackCooldownTime)
         {
-            Shoot(playerPos,transform.forward);
+            Shoot(_playerPos,transform.forward);
             _fireAttackCooldownTime = Time.time + fireAttackCooldown;
         }
         //attack BWD
         if(Input.GetKeyDown(KeyCode.K) && Time.time > _fireAttackCooldownTime)
         {
-            Shoot(playerPos , transform.forward, -1);
+            Shoot(_playerPos , transform.forward, -1);
             _fireAttackCooldownTime = Time.time + fireAttackCooldown;
         }
         //attack Right
         if (Input.GetKeyDown(KeyCode.L) && Time.time > _fireAttackCooldownTime)
         {
-            Shoot(playerPos, transform.right);
+            Shoot(_playerPos, transform.right);
             _fireAttackCooldownTime = Time.time + fireAttackCooldown;
         }
         //attack Left
         if (Input.GetKeyDown(KeyCode.J) && Time.time > _fireAttackCooldownTime)
         {
-            Shoot(playerPos, transform.right, -1);
+            Shoot(_playerPos, transform.right, -1);
             _fireAttackCooldownTime = Time.time + fireAttackCooldown;
         }
         
@@ -61,19 +59,7 @@ public class PlayerFireAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))
         {
             ShootAll();
-            _specialAttackCooldownTime = Time.time + specialAttackCooldown;
         }
-        
-        //DEBUG
-        Debug.DrawRay(playerPos, new Vector3(50,0,0), Color.red );
-        
-        Debug.DrawRay(playerPos, new Vector3(-50,0,0), Color.red );
-        
-        Debug.DrawRay(playerPos, new Vector3(0,0,50), Color.blue);
-        
-        Debug.DrawRay(playerPos, new Vector3(0,0,-50), Color.blue );
-        //TEMP
-        globalSpecialCooldown = _fireAttackCooldownTime - Time.time;
     }
 
     private void Shoot(Vector3 pPos, Vector3 tsf, float dir=1)
@@ -88,10 +74,10 @@ public class PlayerFireAttack : MonoBehaviour
 
     private void ShootAll()
     {
-        Shoot(playerPos,transform.forward);
-        Shoot(playerPos, transform.forward, -1);
-        Shoot(playerPos, transform.right);
-        Shoot(playerPos, transform.right, -1);
+        Shoot(_playerPos,transform.forward);
+        Shoot(_playerPos, transform.forward, -1);
+        Shoot(_playerPos, transform.right);
+        Shoot(_playerPos, transform.right, -1);
         
     }
     
