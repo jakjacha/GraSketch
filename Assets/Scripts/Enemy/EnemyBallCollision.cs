@@ -18,6 +18,7 @@ public class EnemyBallCollision : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         if(col.gameObject.CompareTag("Ball"))
         {
             Destroy(gameObject);

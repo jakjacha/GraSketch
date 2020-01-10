@@ -1,34 +1,84 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class EnemyMovementAI : MonoBehaviour
 {
-    private Transform _target;
-    public int speed;
+    public int speed = 3;
     public int rotationSpeed;
     public float enemyAttackRange;
+    public float moveCooldown;
     private GameObject _player;
-
-    //private Transform _enemyPos;
+    private bool flag = true;
+    private float _cooldownTime;
 
     void Start()
     {
         enemyAttackRange = 4;
         _player = GameObject.FindGameObjectWithTag("Player");
-        _target = _player.transform;
+        moveCooldown = 1.0f;
+        float cooldownTime = Time.time + moveCooldown;
     }
-    
+
     void Update()
     {
+        Vector3 target = _player.transform.position;
+        Vector3 pos = transform.position;
         //linie laczace enemy i target
-        Debug.DrawLine(_target.position, transform.position, Color.blue); 
+        Debug.DrawLine(target, pos, Color.blue);
+
+        //Debug.Log(pos.z + " " + target.z);
+        if (Vector3.Distance(target, pos) > enemyAttackRange)
+        {
+            if (pos.z > target.z && flag)
+            {
+                transform.position -= transform.forward * speed * Time.deltaTime;
+            }
+            else if (pos.z < target.z && flag)
+            {
+                transform.position += transform.forward * speed * Time.deltaTime;
+            }
+
+            if (pos.x > target.x && !flag)
+            {
+                transform.position -= transform.right * speed * Time.deltaTime;
+            }
+            else if (pos.x < target.x && !flag)
+            {
+                transform.position += transform.right * speed * Time.deltaTime;
+            }
+        }
+
+        //Debug.Log(_cooldownTime + " " + Time.time);
+        if (Time.time > _cooldownTime)
+        {
+            flag = !flag;
+           // Debug.Log(flag);
+            _cooldownTime = Time.time + moveCooldown;
+        }
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Wall"))
+        {
+            //transform.position = Vector3.zero;
+        }
+
+        //Debug.Log(col.gameObject.name);
+    }
+
+    /*private void oldMove(Vector3 target)
+    {
         //obrot w strone target
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_target.position - transform.position), rotationSpeed * Time.deltaTime );
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target - transform.position), rotationSpeed * Time.deltaTime );
         //ruch do przodu
-        if (Vector3.Distance(_target.position, transform.position) > enemyAttackRange)
+        if (Vector3.Distance(target, transform.position) > enemyAttackRange)
         {
             transform.position += transform.forward * speed * Time.deltaTime;
         }
@@ -36,29 +86,5 @@ public class EnemyMovementAI : MonoBehaviour
         {
             transform.position -= transform.forward * speed * Time.deltaTime;
         }
-        //za blisko
-
-        if (transform.position.x <= -45f) {
-            transform.position = new Vector3(-45f,transform.position.y, transform.position.y);
-        } else if (transform.position.x >= 45f) {
-            transform.position = new Vector3(45f,transform.position.y, transform.position.y);
-        }
- 
-        // Y axis
-        if (transform.position.z <= 30f) {
-            transform.position = new Vector3(transform.position.x,transform.position.y, 30f);
-        } else if (transform.position.y >= 120f) {
-            transform.position = new Vector3(transform.position.x,transform.position.y, 120f);
-        }
-    }
-
-    private void OnCollisionEnter(Collision col) 
-    {
-        if(col.gameObject.CompareTag("Wall"))
-        {
-            transform.position = Vector3.zero;
-            
-        }
-        Debug.Log(col.gameObject.name);
-    }
+    }*/
 }
