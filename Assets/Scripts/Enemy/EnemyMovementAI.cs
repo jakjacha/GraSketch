@@ -10,7 +10,6 @@ using Vector3 = UnityEngine.Vector3;
 public class EnemyMovementAI : MonoBehaviour
 {
     public int speed = 3;
-    public int rotationSpeed;
     public float enemyAttackRange;
     public float moveCooldown;
     private GameObject _player;

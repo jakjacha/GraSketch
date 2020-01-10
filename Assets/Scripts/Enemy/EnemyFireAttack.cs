@@ -37,13 +37,13 @@ public class EnemyFireAttack : MonoBehaviour
             {
                 if (dir.x > 0)
                 {
-                    Debug.Log("prawo");
+                    //Debug.Log("prawo");
                     Shoot(pos, transform.right, -1);
                 }
 
                 else if (dir.z < 0)
                 {
-                    Debug.Log("tyl");
+                   // Debug.Log("tyl");
                     Shoot(pos, transform.forward, 1);
                 }
             }
@@ -51,13 +51,13 @@ public class EnemyFireAttack : MonoBehaviour
             {
                 if (dir.z > 0)
                 {
-                    Debug.Log("przod");
+                    //Debug.Log("przod");
                     Shoot(pos, transform.forward, -1);
                 }
 
                 else if (dir.x < 0)
                 {
-                    Debug.Log("lewo");
+                    //Debug.Log("lewo");
                     Shoot(pos, transform.right, 1);
                 }
             }

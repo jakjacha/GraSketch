@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float currentHealth = 100;
     public float startingHealth = 100;
-
+    public float killPoints = 100;
     public Slider slider;
     
     private void Start()
@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
         // ReSharper disable once PossibleLossOfFraction
-        UpdateCurrentHealth(0);
+        //UpdateCurrentHealth(0);
         slider.value = currentHealth / startingHealth * 100;
     }
     
@@ -30,15 +30,13 @@ public class EnemyHealth : MonoBehaviour
     public void  UpdateCurrentHealth(float change)
     {
         currentHealth -= change;
+        if (currentHealth > startingHealth)
+            currentHealth = startingHealth;
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
             Destroy(gameObject);
         }
-
-        if (currentHealth > startingHealth)
-            currentHealth = startingHealth;
     }
-
-
 }

@@ -1,14 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameWatcher : MonoBehaviour
 {
-    public int enemiesCount;
-    public GameObject enemySpawn;
-    void Update()
+    public float currentPoints=0;
+
+    private void Start()
     {
-        enemiesCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-        if(enemiesCount<=0)enemySpawn.SetActive(false);
+        currentPoints = 0;
+    }
+
+    private void Update()
+    {
+        //currentScore.score = currentPoints;
+    }
+
+    public void UpdatePoints(float pts)
+    {
+        currentPoints += pts;
     }
 }
