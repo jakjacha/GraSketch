@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    public float startingHealth = 100;
-    public float currentHealth = 100;
-    private float _healthBarSize;
-    private float _healthBarHeight = 20;
-    void Update()
+    private TextMeshProUGUI _displayHealth;
+    private float _hp;
+    public static float startingHealth { get; set; }
+
+    private void Start()
     {
-        _healthBarSize = Screen.width / 2 / (startingHealth / currentHealth);
-        UpdateCurrentHealth(0);
-    }
-    void OnGUI()
-    {
-        GUI.Box(new Rect(Screen.width/4, Screen.height-_healthBarHeight, _healthBarSize, _healthBarHeight), currentHealth.ToString());
+        if (startingHealth < 100) startingHealth = 100;
+        _displayHealth = GetComponent<TextMeshProUGUI>();
+        GameWatcher.CurrentHealth = startingHealth;
     }
 
-    public void UpdateCurrentHealth(float change)
+    private void Update()
     {
-        currentHealth += change;
-        if (currentHealth < 0)
-            currentHealth = 0;
-
-        if (currentHealth > startingHealth)
-            currentHealth = startingHealth;
+        _displayHealth.text = "HP: " + GameWatcher.CurrentHealth;
     }
 }

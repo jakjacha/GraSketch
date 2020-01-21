@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
-using UnityEngine.Experimental.PlayerLoop;
 
 public class Score : MonoBehaviour
 {
-    private TextMeshProUGUI _scoreOutput;
-    public float score;
+    private TextMeshProUGUI _displayScore;
+    private float _score;
 
     private void Start()
     {
-        _scoreOutput = GetComponent<TextMeshProUGUI>();
+        _displayScore = GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    private void Update()
     {
-        //GameWatcher currentScore = GetComponent<GameWatcher>();
-       // _score = currentScore.currentPoints;
-       _scoreOutput.text = ("Punkty " + score.ToString());
+        _displayScore.text = "PTS: " + GameWatcher.CurrentPoints;
     }
+    
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BallCollision : MonoBehaviour
 {
@@ -16,20 +13,14 @@ public class BallCollision : MonoBehaviour
             //Debug.Log("Ball hit: " + col.gameObject.name);
         }
 
-        if (col.gameObject.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
-        
-        if(col.gameObject.CompareTag("Ball"))
-        {
-            Destroy(gameObject);
-        }
+        if (col.gameObject.CompareTag("Wall")) Destroy(gameObject);
+
+        if (col.gameObject.CompareTag("Ball")) Destroy(gameObject);
     }
 
     private void BallHitEnemy(GameObject enemy)
     {
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-        enemyHealth.UpdateCurrentHealth(change: damageValue);
+        var enemyHealth = enemy.GetComponent<EnemyHealth>();
+        enemyHealth.UpdateCurrentHealth(damageValue);
     }
 }

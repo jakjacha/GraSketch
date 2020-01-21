@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MarkerTrigger : MonoBehaviour
 {
@@ -10,7 +7,10 @@ public class MarkerTrigger : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Activating: " + go.name);
-        go.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Activating: " + go.name);
+            go.SetActive(true);
+        }
     }
 }

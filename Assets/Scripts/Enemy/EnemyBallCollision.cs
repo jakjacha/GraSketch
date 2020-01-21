@@ -1,33 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyBallCollision : MonoBehaviour
 {
-    public float damageValue = 50;
+    public float damageValue = 10;
 
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            BallHitEnemy(col.gameObject);
+            GameWatcher.CurrentHealth -= EnemyFireAttack.DamageValue;
         }
 
-        if (col.gameObject.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
-        
-        if(col.gameObject.CompareTag("Ball"))
-        {
-            Destroy(gameObject);
-        }
-    }
+        if (col.gameObject.CompareTag("Wall")) Destroy(gameObject);
 
-    private void BallHitEnemy(GameObject player)
-    {
-        PlayerHealthBar playerHealth = player.GetComponent<PlayerHealthBar>();
-        playerHealth.UpdateCurrentHealth(change: damageValue);
+        if (col.gameObject.CompareTag("Ball")) Destroy(gameObject);
     }
 }

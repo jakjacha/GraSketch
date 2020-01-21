@@ -1,24 +1,32 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameWatcher : MonoBehaviour
 {
-    public float currentPoints=0;
+    public static float CurrentPoints { get; set; }
+    public static float CurrentHealth { get; set; }
+    public static float CurrentEnemiesCount { get; set; }
+    
+    public static bool NextLevelFlag { get; set; }
+    public static float CurrentEnemiesKilled { get; set; }
 
     private void Start()
     {
-        currentPoints = 0;
+        NextLevelFlag = false;
+        CurrentPoints = 0;
+        CurrentEnemiesCount = 0;
+        CurrentEnemiesKilled = 0;
+        CurrentHealth = PlayerHealthBar.startingHealth;
     }
 
     private void Update()
     {
-        //currentScore.score = currentPoints;
+        if(CurrentEnemiesKilled>0 && CurrentEnemiesCount<=0)NextLevelFlag = true;
     }
 
-    public void UpdatePoints(float pts)
+    public void NowaGra()
     {
-        currentPoints += pts;
+        Debug.Log("klik");
+        Application.LoadLevel(0);
     }
 }

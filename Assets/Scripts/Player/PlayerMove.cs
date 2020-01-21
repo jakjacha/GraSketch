@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    CharacterController _playerMove;
-
+    // public float rotationSpeed;
+    private Vector3 _dir = Vector3.zero;
+    private CharacterController _playerMove;
     public float speed;
-   // public float rotationSpeed;
-   private Vector3 _dir = Vector3.zero;
-    void Start()
+
+    private void Start()
     {
         _playerMove = GetComponent<CharacterController>();
         if (speed < 15) speed = 15;
     }
 
-    void Update()
+    private void Update()
     {
         _dir = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         _dir *= speed;

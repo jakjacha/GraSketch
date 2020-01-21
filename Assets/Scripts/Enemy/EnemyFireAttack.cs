@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = System.Random;
+﻿using UnityEngine;
 
 public class EnemyFireAttack : MonoBehaviour
 {
-    public GameObject ball;
-
-    public float ballSpeed;
-    public float fireAttackCooldown;
-
     private float _ballLifeTime;
     private float _fireAttackCooldownTime;
     private GameObject _target;
+    public GameObject ball;
 
-    void Start()
+    public float ballSpeed;
+    public float damageValue;
+    public float fireAttackCooldown;
+    public static float DamageValue { get; set; }
+
+    private void Start()
     {
+        DamageValue = damageValue;
         ballSpeed = 10;
         ball = Resources.Load("EnemyBall") as GameObject;
         if (ballSpeed < 1) ballSpeed = 10;
@@ -26,41 +24,34 @@ public class EnemyFireAttack : MonoBehaviour
         _target = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update()
+    private void Update()
     {
-        Vector3 pos = transform.position;
+        var pos = transform.position;
         if (Time.time > _fireAttackCooldownTime)
         {
-            Vector3 dir = pos - _target.transform.position;
+            var dir = pos - _target.transform.position;
             //Debug.Log(name + " " + dir);
             if (dir.x > dir.z)
             {
                 if (dir.x > 0)
-                {
                     //Debug.Log("prawo");
                     Shoot(pos, transform.right, -1);
-                }
 
                 else if (dir.z < 0)
-                {
-                   // Debug.Log("tyl");
-                    Shoot(pos, transform.forward, 1);
-                }
+                    // Debug.Log("tyl");
+                    Shoot(pos, transform.forward);
             }
             else if (dir.x < dir.z)
             {
                 if (dir.z > 0)
-                {
                     //Debug.Log("przod");
                     Shoot(pos, transform.forward, -1);
-                }
 
                 else if (dir.x < 0)
-                {
                     //Debug.Log("lewo");
-                    Shoot(pos, transform.right, 1);
-                }
+                    Shoot(pos, transform.right);
             }
+
             _fireAttackCooldownTime = Time.time + fireAttackCooldown;
         }
     }
@@ -73,9 +64,9 @@ public class EnemyFireAttack : MonoBehaviour
             return;
         }
 
-        GameObject ballCpy = Instantiate(ball) as GameObject;
+        var ballCpy = Instantiate(ball);
         ballCpy.transform.position = pPos + dir * tsf;
-        Rigidbody rb = ballCpy.GetComponent<Rigidbody>();
+        var rb = ballCpy.GetComponent<Rigidbody>();
         rb.velocity = dir * tsf * ballSpeed;
         Destroy(ballCpy, _ballLifeTime);
     }

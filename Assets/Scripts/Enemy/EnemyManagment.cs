@@ -1,34 +1,36 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManagment : MonoBehaviour
 {
+    private int _cnt;
+    //public GameObject Srodek;
+    public GameObject enemy;
     public int enemyCount;
 
     public int enemySpawnPosX;
 
     public int enemySpawnPosZ;
 
-    public GameObject enemy;
-    private int _cnt;
-
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _cnt = 0;
         StartCoroutine(EnemySpawn());
+        GameWatcher.CurrentEnemiesCount += enemyCount;
+        //if(GameWatcher.CurrentEnemiesCount <=0)Destroy(gameObject);
     }
 
-    IEnumerator EnemySpawn()
+    private IEnumerator EnemySpawn()
     {
+        Vector3 pos = transform.position + new Vector3(0,0,45);
         while (_cnt < enemyCount)
         {
-            enemySpawnPosX = Random.Range(-45, 45);
-            enemySpawnPosZ = Random.Range(30, 120);
+            enemySpawnPosX = (int) Random.Range(pos.x-35, pos.x+35);
+            enemySpawnPosZ = (int) Random.Range(pos.z-30, pos.z+30);
             Instantiate(enemy, new Vector3(enemySpawnPosX, 2, enemySpawnPosZ), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
-            _cnt ++;
+            _cnt++;
         }
     }
 }
