@@ -12,8 +12,8 @@ public class Playground : MonoBehaviour
     {
         if (GameWatcher.CurrentEnemiesCount <= 0 && GameWatcher.NextLevelFlag)
         {
-            Brama.SetActive(false);
-            Marker.SetActive(true);
+            if (Brama != null) Brama.SetActive(false);
+            if (Marker != null) Marker.SetActive(true);
             GameWatcher.NextLevelFlag = false;
         }
             
