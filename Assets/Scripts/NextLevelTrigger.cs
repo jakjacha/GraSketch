@@ -12,6 +12,7 @@ public class NextLevelTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        GameWatcher.NextLevelFlag = false;
         if (other.CompareTag("Player"))
         {
             if (GameWatcher.CurrentEnemiesCount <= 0 && GameWatcher.CurrentEnemiesKilled > 0)
@@ -19,7 +20,7 @@ public class NextLevelTrigger : MonoBehaviour
                 Instantiate(go,
                         transform.position + new Vector3(0, 0, 25),
                         Quaternion.identity);
-                    Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
     }

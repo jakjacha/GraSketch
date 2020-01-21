@@ -9,7 +9,7 @@ public class MarkerTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Activating: " + go.name);
+            //Debug.Log("Activating: " + go.name);
             go.SetActive(true);
         }
     }

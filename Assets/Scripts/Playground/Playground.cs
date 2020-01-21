@@ -10,11 +10,11 @@ public class Playground : MonoBehaviour
 
     private void Update()
     {
-        if (GameWatcher.CurrentEnemiesCount <= 0 && GameWatcher.NextLevelFlag)
+        if (GameWatcher.CurrentEnemiesCount <= 0 && GameWatcher.NextLevelFlag && GameWatcher.NewEnemiesKilled)
         {
-            if (Brama != null) Brama.SetActive(false);
+            Brama.SetActive(false);
             if (Marker != null) Marker.SetActive(true);
-            GameWatcher.NextLevelFlag = false;
+            //Debug.Log("here");
         }
             
     }

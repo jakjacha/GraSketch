@@ -13,7 +13,9 @@ public class Logger : MonoBehaviour
 
     private void Update()
     {
-        _display.text = "Enemies: " + GameWatcher.CurrentEnemiesCount + "\n" 
-                        + "Kills: " + GameWatcher.CurrentEnemiesKilled;
+        _display.text = "Enemies: " + GameWatcher.CurrentEnemiesCount + "\n"
+                        + "Kills: " + GameWatcher.CurrentEnemiesKilled + "\n"
+                        + "NLF: " + GameWatcher.NextLevelFlag + "\n"
+                        + "NEK: " + GameWatcher.NewEnemiesKilled + "\n";
     }
 }

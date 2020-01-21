@@ -6,8 +6,8 @@ public class GameWatcher : MonoBehaviour
     public static float CurrentPoints { get; set; }
     public static float CurrentHealth { get; set; }
     public static float CurrentEnemiesCount { get; set; }
-    
     public static bool NextLevelFlag { get; set; }
+    public static bool NewEnemiesKilled { get; set; }
     public static float CurrentEnemiesKilled { get; set; }
 
     private void Start()
@@ -21,12 +21,16 @@ public class GameWatcher : MonoBehaviour
 
     private void Update()
     {
-        if(CurrentEnemiesKilled>0 && CurrentEnemiesCount<=0)NextLevelFlag = true;
+        if (CurrentEnemiesKilled > 0 && CurrentEnemiesCount <= 0 && !NewEnemiesKilled)
+        {
+            NextLevelFlag = true;
+            NewEnemiesKilled = true;
+        }
     }
 
     public void NowaGra()
     {
-        Debug.Log("klik");
+        //Debug.Log("klik");
         Application.LoadLevel(0);
     }
 }

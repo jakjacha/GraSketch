@@ -18,16 +18,16 @@ public class EnemyManagment : MonoBehaviour
         _cnt = 0;
         StartCoroutine(EnemySpawn());
         GameWatcher.CurrentEnemiesCount += enemyCount;
-        Debug.Log(transform.position);
+        GameWatcher.NewEnemiesKilled = false;
         //if(GameWatcher.CurrentEnemiesCount <=0)Destroy(gameObject);
     }
 
     private IEnumerator EnemySpawn()
     {
-        Vector3 pos = transform.position + new Vector3(0,0,35);
+        Vector3 pos = transform.position;
         while (_cnt < enemyCount)
         {
-            enemySpawnPosX = (int) Random.Range(25, 25);
+            enemySpawnPosX = (int) Random.Range(-25, 25);
             enemySpawnPosZ = (int) Random.Range(pos.z-25, pos.z+25);
             Instantiate(enemy, new Vector3(enemySpawnPosX, 2, enemySpawnPosZ), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
