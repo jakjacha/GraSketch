@@ -13,6 +13,7 @@ public class GameWatcher : MonoBehaviour
     private void Start()
     {
         NextLevelFlag = false;
+        NewEnemiesKilled = false;
         CurrentPoints = 0;
         CurrentEnemiesCount = 0;
         CurrentEnemiesKilled = 0;
