@@ -54,7 +54,7 @@ public class PlayerFireAttack : MonoBehaviour
         }
 
         //attack ALL
-        if (Input.GetKeyDown(KeyCode.U)) ShootAll();
+       // if (Input.GetKeyDown(KeyCode.U)) ShootAll();
     }
 
     private void Shoot(Vector3 pPos, Vector3 tsf, float dir = 1)
