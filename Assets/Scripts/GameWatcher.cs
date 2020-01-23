@@ -9,9 +9,11 @@ public class GameWatcher : MonoBehaviour
     public static bool NextLevelFlag { get; set; }
     public static bool NewEnemiesKilled { get; set; }
     public static float CurrentEnemiesKilled { get; set; }
+    public static int EnemiesLevel { get; set; }
 
     private void Start()
     {
+        EnemiesLevel = 5;
         NextLevelFlag = false;
         NewEnemiesKilled = false;
         CurrentPoints = 0;

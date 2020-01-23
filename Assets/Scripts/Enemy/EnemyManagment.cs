@@ -16,6 +16,7 @@ public class EnemyManagment : MonoBehaviour
     private void Start()
     {
         _cnt = 0;
+        enemyCount = GameWatcher.EnemiesLevel;
         StartCoroutine(EnemySpawn());
         GameWatcher.CurrentEnemiesCount += enemyCount;
         GameWatcher.NewEnemiesKilled = false;

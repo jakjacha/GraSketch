@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float currentHealth = 100;
-    public float killPoints = 100;
+    [FormerlySerializedAs("_currentHealth")] public float currentHealth;
+    private float _killPoints;
     public Slider slider;
-    public float startingHealth = 100;
-
+    private float _startingHealth = 20;
+    private float _maxHealth;
     private void Start()
     {
-        currentHealth = startingHealth;
-        slider.maxValue = startingHealth;
+        _maxHealth = _startingHealth*GameWatcher.EnemiesLevel;
+        currentHealth = _maxHealth;
+        slider.maxValue = currentHealth;
+        _killPoints = 25*GameWatcher.EnemiesLevel;
     }
 
 
@@ -19,20 +22,18 @@ public class EnemyHealth : MonoBehaviour
     {
         // ReSharper disable once PossibleLossOfFraction
         //UpdateCurrentHealth(0);
-        slider.value = currentHealth / startingHealth * 100;
+        slider.value = currentHealth / _maxHealth * 100;
     }
 
 
     public void UpdateCurrentHealth(float change)
     {
         currentHealth -= change;
-        if (currentHealth > startingHealth)
-            currentHealth = startingHealth;
 
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            GameWatcher.CurrentPoints += killPoints;
+            GameWatcher.CurrentPoints += _killPoints;
             GameWatcher.CurrentEnemiesKilled++;
             Destroy(gameObject);
             GameWatcher.CurrentEnemiesCount--;

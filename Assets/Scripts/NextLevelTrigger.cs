@@ -7,6 +7,7 @@ public class NextLevelTrigger : MonoBehaviour
 
     private void Start()
     {
+        GameWatcher.EnemiesLevel++;
         go = Resources.Load("Level1") as GameObject;
     }
 
